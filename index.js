@@ -2,8 +2,10 @@ const form = document.getElementById("form");
 const taskInput = document.getElementById("add-task-input");
 const addBtn = document.getElementById("add-task-btn");
 const listContainer = document.getElementById("list-container");
+const counterElement = document.getElementById("counter-p");
 
 let tasks = [];
+let counter = 0;
 
 const handleCheckBox = (checkboxInput, taskInputElement) => {
   if (checkboxInput.checked) {
@@ -19,6 +21,9 @@ const addTask = (e) => {
   if (taskInput.value) {
     tasks.push(taskInput.value);
     renderTaskList();
+
+    counter++;
+    updateCounter();
   } else {
     alert("You must enter a task.");
   }
@@ -32,6 +37,8 @@ const deleteTask = (index) => {
     const confirmDelete = confirm("Are you sure?");
     if (index >= 0 && index < tasks.length && confirmDelete) {
       tasks.splice(index, 1);
+      counter--;
+      updateCounter();
       renderTaskList();
       localStorage.setItem("tasks", JSON.stringify(tasks));
     } else {
@@ -65,6 +72,11 @@ const editTask = (index) => {
   
 }
 
+const updateCounter = () => {
+  counterElement.innerText = "Number of tasks: " + counter;
+  localStorage.setItem("counter", JSON.stringify(counter));
+}
+
 const renderTaskList = () => {
   listContainer.innerHTML = "";
 
@@ -94,23 +106,32 @@ const renderTaskList = () => {
     const deleteBtn = document.createElement("button");
     deleteBtn.innerText = "Delete";
     deleteBtn.className = "delete-btn";
-    deleteBtn.addEventListener("click", () => deleteTask(i));
+    deleteBtn.addEventListener("click", () => deleteTask(i)); 
 
     divElement.appendChild(checkboxInput);
     divElement.appendChild(taskInputElement);
     divElement.appendChild(editBtn);
     divElement.appendChild(deleteBtn);
     listContainer.appendChild(divElement);
+
   }
 };
 
 form.addEventListener("submit", addTask);
 
 const showTasks = JSON.parse(localStorage.getItem("tasks"));
+const showCounter = JSON.parse(localStorage.getItem("counter")); 
 
 if (showTasks) {
   tasks = showTasks;
   renderTaskList();
+} else{
+  listContainer.innerText = "No tasks yet.";
+}
+
+if (showCounter) {
+  counter = showCounter;
+  updateCounter();
 } else{
   listContainer.innerText = "No tasks yet.";
 }
