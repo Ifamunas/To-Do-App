@@ -1,0 +1,128 @@
+@import url("https://fonts.googleapis.com/css2?family=Inclusive+Sans&family=Martian+Mono&family=Mooli&family=Open+Sans&family=Roboto&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Mooli", sans-serif;
+}
+
+.center {
+  display: flex;
+  align-items: center;
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #153677, #4e085f);
+  padding: 10em;
+}
+
+#todo-app {
+  width: 100%;
+  max-width: 33.75rem;
+  background-color: #fff;
+  margin: 6.25rem auto 1.25rem;
+  padding: 2.5em 1.875em 4.375em;
+  border-radius: 10px;
+}
+
+#todo-app h2 {
+  color: #002765;
+  margin-bottom: 1.25rem;
+}
+
+#todo-app h2 img {
+  width: 1.875rem;
+  margin-right: 0.625rem;
+}
+
+form {
+  margin-bottom: 1rem;
+}
+
+#add-task-input {
+  padding: 1em 1.5em;
+  background-color: #edeef0;
+  width: 80%;
+  border: 1px solid #edeef0;
+  border-radius: 5px;
+}
+
+#add-task-input:focus {
+  outline: none;
+}
+
+#add-task-btn {
+  padding: 1em 1.5em;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  background-color: #27ae60;
+  width: 19%;
+}
+
+#add-task-btn:hover {
+  background-color: #1e8449;
+  opacity: 1;
+  transform: translateY(0);
+  transition-duration: 0.35s;
+  cursor: pointer;
+}
+
+#list-container div {
+  cursor: pointer;
+  margin: 1rem 0;
+}
+
+#list-container div input[type='text']{
+  border: none;
+  outline: none;
+  padding: 0 0.3em;
+  margin: 0 0.3rem;
+  width: 21.1rem;
+}
+
+.checked{
+  color: #555;
+  text-decoration: line-through;
+}
+
+#list-container div button {
+  padding: 0.3em;
+  border-radius: 5px;
+  border: none;
+  width: 3.5rem;
+  margin-left: 0.2rem; 
+}
+
+.delete-btn {
+  background-color: #ff5945;
+  color: #fff;
+}
+
+.delete-btn:hover {
+  background-color: #e6503e;
+  opacity: 1;
+  transform: translateY(0);
+  transition-duration: 0.35s;
+  cursor: pointer;
+}
+
+.edit-btn {
+  background-color: #2f80ed;
+  color: #fff;
+}
+
+.edit-btn:hover {
+  background-color: #1366d6;
+  opacity: 1;
+  transform: translateY(0);
+  transition-duration: 0.35s;
+  cursor: pointer;
+}
+
+.task {
+  color: black;
+}
