@@ -3,16 +3,25 @@ const taskInput = document.getElementById("add-task-input");
 const addBtn = document.getElementById("add-task-btn");
 const listContainer = document.getElementById("list-container");
 const counterElement = document.getElementById("counter-p");
+const checkedTasksElement = document.getElementById("checked-tasks");
 
 let tasks = [];
 let counter = 0;
+let checkedTasks = 0;
 
-const handleCheckBox = (checkboxInput, taskInputElement) => {
+const handleCheckBox = (checkboxInput, taskInputElement, index) => {
   if (checkboxInput.checked) {
     taskInputElement.classList.add("checked");
+    tasks[index].checked = true;
+    checkedTasks++;
   } else {
     taskInputElement.classList.remove("checked");
+    tasks[index].checked = false;
+    checkedTasks--;
   }
+  updateCompletedTasks();
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+  console.log(checkedTasks);
 };
 
 const addTask = (e) => {
@@ -39,6 +48,7 @@ const deleteTask = (index) => {
       tasks.splice(index, 1);
       counter--;
       updateCounter();
+      updateCompletedTasks();
       renderTaskList();
       localStorage.setItem("tasks", JSON.stringify(tasks));
     } else {
@@ -50,7 +60,6 @@ const deleteTask = (index) => {
 };
 
 const editTask = (index) => {
-  console.log(index)
   const taskInputElement = document.querySelectorAll(".task")[index];
   const editBtn = document.querySelectorAll(".edit-btn")[index];
   try {
@@ -72,6 +81,10 @@ const editTask = (index) => {
   
 }
 
+const updateCompletedTasks = () => {
+  checkedTasksElement.innerText = "Completed tasks: " + checkedTasks;
+}
+
 const updateCounter = () => {
   counterElement.innerText = "Number of tasks: " + counter;
   localStorage.setItem("counter", JSON.stringify(counter));
@@ -88,7 +101,7 @@ const renderTaskList = () => {
     checkboxInput.checked = tasks[i].checked;
     checkboxInput.addEventListener("click", () => {
       tasks[i].checked = checkboxInput.checked;
-      handleCheckBox(checkboxInput, taskInputElement);
+      handleCheckBox(checkboxInput, taskInputElement, i);
       localStorage.setItem("tasks", JSON.stringify(tasks));
     });
 
@@ -124,6 +137,8 @@ const showCounter = JSON.parse(localStorage.getItem("counter"));
 
 if (showTasks) {
   tasks = showTasks;
+  checkedTasks = tasks.filter(task => task.checked).length; 
+  updateCompletedTasks();
   renderTaskList();
 } else{
   listContainer.innerText = "No tasks yet.";
